@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="470" viewBox="0 0 760 470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+	<title>How the version badge decides whether to show</title>
+	<desc>Decision flow: the badge renders only on the structure root; on localhost it always shows, in production it shows only when a package version changed or more than 7 days passed since it was last seen.</desc>
+
+	<style>
+		.box { fill: #ffffff; stroke: #c8cdd6; stroke-width: 1.5; rx: 8; }
+		.decision { fill: #f4f6fa; stroke: #9aa3b2; stroke-width: 1.5; }
+		.show { fill: #e8f6ec; stroke: #2c9e4f; stroke-width: 1.5; }
+		.hide { fill: #f7e9e9; stroke: #c0504d; stroke-width: 1.5; }
+		.label { font-size: 13px; fill: #1a1f29; }
+		.small { font-size: 11px; fill: #5a6273; }
+		.edge { fill: none; stroke: #9aa3b2; stroke-width: 1.4; }
+		.edgelabel { font-size: 11px; fill: #5a6273; }
+		.title { font-size: 15px; font-weight: 600; fill: #1a1f29; }
+	</style>
+
+	<text x="24" y="30" class="title">When does the badge appear?</text>
+
+	<!-- Start -->
+	<rect x="24" y="56" width="220" height="46" rx="8" class="box"/>
+	<text x="134" y="79" text-anchor="middle" class="label">Studio layout renders</text>
+	<text x="134" y="95" text-anchor="middle" class="small">on every route change</text>
+
+	<!-- structure root decision -->
+	<polygon points="134,124 274,164 134,204 -6,164" class="decision"/>
+	<text x="134" y="160" text-anchor="middle" class="label">On structure root?</text>
+	<text x="134" y="176" text-anchor="middle" class="small">path has /structure, no ;</text>
+
+	<!-- no -> hidden -->
+	<rect x="300" y="141" width="150" height="46" rx="8" class="hide"/>
+	<text x="375" y="164" text-anchor="middle" class="label">Hidden</text>
+	<text x="375" y="180" text-anchor="middle" class="small">document or pane open</text>
+
+	<!-- env decision -->
+	<polygon points="134,226 264,266 134,306 4,266" class="decision"/>
+	<text x="134" y="262" text-anchor="middle" class="label">Localhost?</text>
+	<text x="134" y="278" text-anchor="middle" class="small">hostname check</text>
+
+	<!-- localhost yes -> show -->
+	<rect x="300" y="243" width="150" height="46" rx="8" class="show"/>
+	<text x="375" y="266" text-anchor="middle" class="label">Shown</text>
+	<text x="375" y="282" text-anchor="middle" class="small">always, in dev</text>
+
+	<!-- production decision -->
+	<polygon points="134,328 304,372 134,416 -36,372" class="decision"/>
+	<text x="134" y="362" text-anchor="middle" class="label">Production: version changed</text>
+	<text x="134" y="378" text-anchor="middle" class="small">or &gt; 7 days since last seen?</text>
+
+	<!-- prod yes -> show -->
+	<rect x="360" y="349" width="170" height="46" rx="8" class="show"/>
+	<text x="445" y="372" text-anchor="middle" class="label">Shown</text>
+	<text x="445" y="388" text-anchor="middle" class="small">cookie updated</text>
+
+	<!-- prod no -> hidden -->
+	<rect x="360" y="408" width="170" height="46" rx="8" class="hide"/>
+	<text x="445" y="431" text-anchor="middle" class="label">Hidden</text>
+	<text x="445" y="447" text-anchor="middle" class="small">until next change / 7d</text>
+
+	<!-- side panel: extras -->
+	<rect x="560" y="56" width="180" height="160" rx="8" class="box"/>
+	<text x="650" y="80" text-anchor="middle" class="title" font-size="13">While shown</text>
+	<text x="576" y="104" class="small">New (&lt;7d) packages get a</text>
+	<text x="576" y="120" class="small">positive &#8220;new&#8221; badge</text>
+	<text x="576" y="144" class="small">Tooltips show each</text>
+	<text x="576" y="160" class="small">package&#8217;s npm description</text>
+	<text x="576" y="184" class="small">Close button dismisses</text>
+	<text x="576" y="200" class="small">for 7 days (cookie)</text>
+
+	<!-- edges -->
+	<path d="M134,102 L134,124" class="edge" marker-end="url(#arrow)"/>
+	<path d="M274,164 L300,164" class="edge" marker-end="url(#arrow)"/>
+	<text x="282" y="156" class="edgelabel">no</text>
+	<path d="M134,204 L134,226" class="edge" marker-end="url(#arrow)"/>
+	<text x="142" y="220" class="edgelabel">yes</text>
+	<path d="M264,266 L300,266" class="edge" marker-end="url(#arrow)"/>
+	<text x="272" y="258" class="edgelabel">yes</text>
+	<path d="M134,306 L134,328" class="edge" marker-end="url(#arrow)"/>
+	<text x="142" y="322" class="edgelabel">no</text>
+	<path d="M304,372 L360,372" class="edge" marker-end="url(#arrow)"/>
+	<text x="320" y="364" class="edgelabel">yes</text>
+	<path d="M134,416 L134,431 L360,431" class="edge" marker-end="url(#arrow)"/>
+	<text x="150" y="427" class="edgelabel">no</text>
+
+	<defs>
+		<marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+			<path d="M0,0 L8,4 L0,8 z" fill="#9aa3b2"/>
+		</marker>
+	</defs>
+</svg>

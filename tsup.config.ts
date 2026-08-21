@@ -6,5 +6,14 @@ export default defineConfig({
 	dts: false,
 	clean: true,
 	jsx: true,
-	external: ['react', 'react-dom', 'sanity', '@sanity/ui', '@sanity/icons'],
+	// esbuild matches externals exactly, so the compat's /icons subpath needs its own entry
+	external: [
+		'react',
+		'react-dom',
+		'sanity',
+		'@sanity/ui',
+		'@sanity/icons',
+		'@liiift-studio/sanity-ui-compat',
+		'@liiift-studio/sanity-ui-compat/icons',
+	],
 })

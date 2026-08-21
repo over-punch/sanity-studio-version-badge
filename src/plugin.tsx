@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {definePlugin} from 'sanity'
+import type {LayoutProps} from 'sanity'
 import {VersionBadgeLayout} from './components/VersionBadgeLayout'
 import type {PackageInfo} from './components/VersionBadgeLayout'
 
@@ -20,7 +21,7 @@ export const liiiftVersionBadge = (options: LiiiftVersionBadgeOptions = {}) =>
 		name: '@liiift-studio/sanity-studio-version-badge',
 		studio: {
 			components: {
-				layout: (props) =>
+				layout: (props: LayoutProps) =>
 					React.createElement(VersionBadgeLayout, {
 						...props,
 						packages: options.packages ?? [],

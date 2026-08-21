@@ -1,8 +1,20 @@
 // Layout wrapper that renders the studio plus a fixed version badge on the structure root
 
 import React, {useState, useEffect} from 'react'
-import {Badge, Box, Button, Card, Flex, Stack, Text, Tooltip} from '@sanity/ui'
-import {CloseIcon} from '@sanity/icons'
+import type {LayoutProps} from 'sanity'
+/*
+ * Everything from @sanity/ui and @sanity/icons comes through the compat seam.
+ *
+ * This is not optional here. The plugin is wired as `studio.components.layout`, so
+ * it wraps the ENTIRE Studio: a single undefined component white-screens the whole
+ * app rather than blanking one tool. @sanity/ui 4 declares `Tooltip` as `never` and
+ * @sanity/icons 5 declares `CloseIcon` as `never` — both still type-check at the
+ * import site and both are `undefined` at runtime, which React reports as
+ * "Element type is invalid". The badge only renders after a version bump (and then
+ * for 7 days), so a direct import would fail on a delay rather than at first boot.
+ */
+import {Badge, Box, Button, Card, Flex, Stack, Text, Tooltip} from '@liiift-studio/sanity-ui-compat'
+import {CloseIcon} from '@liiift-studio/sanity-ui-compat/icons'
 
 const COOKIE_NAME = 'liiift_pkg_versions'
 /** Duration window for showing the badge on revisit (7 days in ms) */
@@ -32,11 +44,18 @@ interface NpmFetchResult {
 	descriptions: Record<string, string>
 }
 
-/** Props for the VersionBadgeLayout component */
-interface VersionBadgeLayoutProps {
-	renderDefault: (props: Record<string, unknown>) => React.ReactNode
+/**
+ * Props for the VersionBadgeLayout component.
+ *
+ * Extends Sanity's own LayoutProps rather than restating a loose index signature.
+ * The previous shape declared `renderDefault` as taking `Record<string, unknown>`,
+ * which is not the contravariant match for Sanity's `(props: LayoutProps) => Element`
+ * — so the plugin's `React.createElement(VersionBadgeLayout, props)` could not be
+ * type-checked against what the Studio actually passes.
+ */
+type VersionBadgeLayoutProps = LayoutProps & {
+	/** Package name+version pairs to list in the badge. */
 	packages?: PackageInfo[]
-	[key: string]: unknown
 }
 
 /** Returns true when the current hostname is a local dev environment */
@@ -151,11 +170,7 @@ const isStructureRoot = (): boolean => {
  * - "new" labels appear only on packages published to npm within the last 7 days
  * - Tooltips show the npm description for each package (fetched from the registry)
  */
-export const VersionBadgeLayout = ({
-	renderDefault,
-	packages = [],
-	...props
-}: VersionBadgeLayoutProps) => {
+export const VersionBadgeLayout = ({packages = [], ...layoutProps}: VersionBadgeLayoutProps) => {
 	const [onStructureRoot, setOnStructureRoot] = useState<boolean>(isStructureRoot)
 	const [{shouldShow, packagesToCheck}] = useState<CompareVersionsResult>(() =>
 		compareVersions(packages),
@@ -208,7 +223,8 @@ export const VersionBadgeLayout = ({
 
 	return (
 		<>
-			{renderDefault(props)}
+			{/* LayoutProps.renderDefault expects the full LayoutProps back, renderDefault included. */}
+			{layoutProps.renderDefault(layoutProps)}
 			{visible && (
 				<Card
 					shadow={1}
@@ -246,8 +262,13 @@ export const VersionBadgeLayout = ({
 												<span style={{opacity: 0.5}}>@</span>
 												{version}
 											</Text>
+											{/*
+											  * `size` has never been a Badge prop on any @sanity/ui major — it was
+											  * silently ignored, so the label rendered at the default size. The
+											  * intended knob is `fontSize`, which exists on v2, v3 and v4 alike.
+											  */}
 											{isNew && (
-												<Badge tone="positive" size={0}>
+												<Badge tone="positive" fontSize={0}>
 													new
 												</Badge>
 											)}

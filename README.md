@@ -82,12 +82,14 @@ This requires `resolveJsonModule` in your `tsconfig.json`. If you prefer to hard
 
 | Package | Version |
 |---|---|
-| `@sanity/icons` | `>=3` |
-| `@sanity/ui` | `>=3` |
+| `@sanity/icons` | `>=2 <6` |
+| `@sanity/ui` | `>=2 <5` |
 | `react` | `>=18` |
-| `sanity` | `>=3` |
+| `sanity` | `>=3 <7` |
 
-Built and type-checked against `sanity` v5 / React 19; the `>=3` / `>=18` ranges reflect the minimum supported majors.
+Built and type-checked against `sanity` v5, `@sanity/ui` v4, `@sanity/icons` v5 and React 19.
+
+This plugin is installed as `studio.components.layout`, so it wraps the **entire** Studio — a single unresolved component blanks the whole app rather than one tool. `@sanity/ui` and `@sanity/icons` are therefore reached through [`@liiift-studio/sanity-ui-compat`](../sanity-ui-compat) rather than imported directly: `@sanity/ui` v4 declares `Tooltip` as `never` and `@sanity/icons` v5 declares `CloseIcon` as `never`, both of which still type-check at the import site and are `undefined` at runtime. Do not replace these with direct named imports.
 
 ## Network & privacy
 

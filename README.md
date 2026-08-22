@@ -1,6 +1,8 @@
 # sanity-studio-version-badge
 
 [![npm version](https://img.shields.io/npm/v/@liiift-studio/sanity-studio-version-badge.svg)](https://www.npmjs.com/package/@liiift-studio/sanity-studio-version-badge)
+[![Sanity Studio v3 – v6](https://img.shields.io/badge/Sanity%20Studio-v3%20%E2%80%93%20v6-f03e2f.svg)](#peer-dependencies)
+[![license](https://img.shields.io/npm/l/@liiift-studio/sanity-studio-version-badge.svg)](./LICENSE)
 
 Sanity Studio plugin that shows installed `@liiift-studio` package versions in a fixed bottom-right badge on the structure root page. Surfaces recently published packages and reminds the team when updates are available.
 
@@ -87,9 +89,23 @@ This requires `resolveJsonModule` in your `tsconfig.json`. If you prefer to hard
 | `react` | `>=18` |
 | `sanity` | `>=3 <7` |
 
+Together these ranges mean the plugin supports **Sanity Studio v3, v4, v5 and v6** from a single build.
+
 Built and type-checked against `sanity` v5, `@sanity/ui` v4, `@sanity/icons` v5 and React 19.
 
-This plugin is installed as `studio.components.layout`, so it wraps the **entire** Studio — a single unresolved component blanks the whole app rather than one tool. `@sanity/ui` and `@sanity/icons` are therefore reached through [`@liiift-studio/sanity-ui-compat`](../sanity-ui-compat) rather than imported directly: `@sanity/ui` v4 declares `Tooltip` as `never` and `@sanity/icons` v5 declares `CloseIcon` as `never`, both of which still type-check at the import site and are `undefined` at runtime. Do not replace these with direct named imports.
+### Why `@sanity/ui` stops at `<5` when `sanity` goes to `<7`
+
+This looks like a mistake and is not one: **Studio v6 ships `@sanity/ui` v4, not v5.** The `@sanity/ui` cap tracks that library's own major, which lags the Studio's. `>=2 <5` is the correct range for a plugin that supports Studio v3 through v6.
+
+This plugin is installed as `studio.components.layout`, so it wraps the **entire** Studio — a single unresolved component blanks the whole app rather than one tool. `@sanity/ui` and `@sanity/icons` are therefore reached through [`@liiift-studio/sanity-ui-compat`](https://www.npmjs.com/package/@liiift-studio/sanity-ui-compat) rather than imported directly: `@sanity/ui` v4 declares `Tooltip` as `never` and `@sanity/icons` v5 declares `CloseIcon` as `never`, both of which still type-check at the import site and are `undefined` at runtime. Do not replace these with direct named imports.
+
+More broadly: `@sanity/ui` v4 moved `Tooltip`, `Menu`, `MenuButton`, `MenuItem`, `Code`, `Popover`, `Autocomplete`, `Toast` and `useToast` to subpath entries, and `@sanity/icons` v5 removed every named `*Icon` export — while both still declare the removed names as `never`. That is why a green build here proves the code *links*, not that it *renders*.
+
+### Verification status
+
+- ✅ `npm run typecheck` passes clean against `sanity` v5 / `@sanity/ui` v4 / `@sanity/icons` v5.
+- ✅ Running in three in-house Studios (Darden, TDF, MCKL).
+- ❌ **Not** exercised in a running Sanity v6 Studio beyond those. v6 support rests on the peer ranges and the compat layer, not on a certified v6 test pass.
 
 ## Network & privacy
 

@@ -18,7 +18,7 @@ interface LiiiftVersionBadgeOptions {
  */
 export const liiiftVersionBadge = (options: LiiiftVersionBadgeOptions = {}) =>
 	definePlugin({
-		name: '@liiift-studio/sanity-studio-version-badge',
+		name: '@overpunch/sanity-studio-version-badge',
 		studio: {
 			components: {
 				layout: (props: LayoutProps) =>

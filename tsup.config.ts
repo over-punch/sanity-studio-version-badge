@@ -13,7 +13,7 @@ export default defineConfig({
 		'sanity',
 		'@sanity/ui',
 		'@sanity/icons',
-		'@liiift-studio/sanity-ui-compat',
-		'@liiift-studio/sanity-ui-compat/icons',
+		'@overpunch/sanity-ui-compat',
+		'@overpunch/sanity-ui-compat/icons',
 	],
 })

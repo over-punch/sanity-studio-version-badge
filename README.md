@@ -1,8 +1,8 @@
 # sanity-studio-version-badge
 
-[![npm version](https://img.shields.io/npm/v/@liiift-studio/sanity-studio-version-badge.svg)](https://www.npmjs.com/package/@liiift-studio/sanity-studio-version-badge)
+[![npm version](https://img.shields.io/npm/v/@overpunch/sanity-studio-version-badge.svg)](https://www.npmjs.com/package/@overpunch/sanity-studio-version-badge)
 [![Sanity Studio v3 – v6](https://img.shields.io/badge/Sanity%20Studio-v3%20%E2%80%93%20v6-f03e2f.svg)](#peer-dependencies)
-[![license](https://img.shields.io/npm/l/@liiift-studio/sanity-studio-version-badge.svg)](./LICENSE)
+[![license](https://img.shields.io/npm/l/@overpunch/sanity-studio-version-badge.svg)](./LICENSE)
 
 Sanity Studio plugin that shows installed `@liiift-studio` package versions in a fixed bottom-right badge on the structure root page. Surfaces recently published packages and reminds the team when updates are available.
 
@@ -23,7 +23,7 @@ The badge only renders on the structure root, and only when it has something wor
 ## Install
 
 ```bash
-npm install @liiift-studio/sanity-studio-version-badge
+npm install @overpunch/sanity-studio-version-badge
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ Add the plugin to your `sanity.config.ts`:
 
 ```typescript
 import { defineConfig } from 'sanity'
-import { liiiftVersionBadge } from '@liiift-studio/sanity-studio-version-badge'
+import { liiiftVersionBadge } from '@overpunch/sanity-studio-version-badge'
 
 export default defineConfig({
 	projectId: 'your-project-id',
@@ -40,9 +40,9 @@ export default defineConfig({
 	plugins: [
 		liiiftVersionBadge({
 			packages: [
-				{ name: '@liiift-studio/sanity-font-manager', version: '2.3.18' },
-				{ name: '@liiift-studio/sanity-bulk-data-operations', version: '2.0.0' },
-				{ name: '@liiift-studio/sanity-studio-version-badge', version: '2.3.3' },
+				{ name: '@overpunch/sanity-font-manager', version: '2.3.18' },
+				{ name: '@overpunch/sanity-bulk-data-operations', version: '2.0.0' },
+				{ name: '@overpunch/sanity-studio-version-badge', version: '2.3.3' },
 			],
 		}),
 	],
@@ -56,8 +56,8 @@ Pass the currently installed version of each `@liiift-studio` package. The badge
 The `packages` list is supplied by you — the plugin does not auto-detect installed versions. To avoid a hand-maintained list drifting out of date, import each package's `version` straight from its `package.json` so the badge always reflects what's actually installed:
 
 ```typescript
-import fontManagerPkg from '@liiift-studio/sanity-font-manager/package.json'
-import bulkOpsPkg from '@liiift-studio/sanity-bulk-data-operations/package.json'
+import fontManagerPkg from '@overpunch/sanity-font-manager/package.json'
+import bulkOpsPkg from '@overpunch/sanity-bulk-data-operations/package.json'
 
 liiiftVersionBadge({
 	packages: [
@@ -97,7 +97,7 @@ Built and type-checked against `sanity` v5, `@sanity/ui` v4, `@sanity/icons` v5 
 
 This looks like a mistake and is not one: **Studio v6 ships `@sanity/ui` v4, not v5.** The `@sanity/ui` cap tracks that library's own major, which lags the Studio's. `>=2 <5` is the correct range for a plugin that supports Studio v3 through v6.
 
-This plugin is installed as `studio.components.layout`, so it wraps the **entire** Studio — a single unresolved component blanks the whole app rather than one tool. `@sanity/ui` and `@sanity/icons` are therefore reached through [`@liiift-studio/sanity-ui-compat`](https://www.npmjs.com/package/@liiift-studio/sanity-ui-compat) rather than imported directly: `@sanity/ui` v4 declares `Tooltip` as `never` and `@sanity/icons` v5 declares `CloseIcon` as `never`, both of which still type-check at the import site and are `undefined` at runtime. Do not replace these with direct named imports.
+This plugin is installed as `studio.components.layout`, so it wraps the **entire** Studio — a single unresolved component blanks the whole app rather than one tool. `@sanity/ui` and `@sanity/icons` are therefore reached through [`@overpunch/sanity-ui-compat`](https://www.npmjs.com/package/@overpunch/sanity-ui-compat) rather than imported directly: `@sanity/ui` v4 declares `Tooltip` as `never` and `@sanity/icons` v5 declares `CloseIcon` as `never`, both of which still type-check at the import site and are `undefined` at runtime. Do not replace these with direct named imports.
 
 More broadly: `@sanity/ui` v4 moved `Tooltip`, `Menu`, `MenuButton`, `MenuItem`, `Code`, `Popover`, `Autocomplete`, `Toast` and `useToast` to subpath entries, and `@sanity/icons` v5 removed every named `*Icon` export — while both still declare the removed names as `never`. That is why a green build here proves the code *links*, not that it *renders*.
 

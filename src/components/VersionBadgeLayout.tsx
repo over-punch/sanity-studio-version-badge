@@ -13,8 +13,8 @@ import type {LayoutProps} from 'sanity'
  * "Element type is invalid". The badge only renders after a version bump (and then
  * for 7 days), so a direct import would fail on a delay rather than at first boot.
  */
-import {Badge, Box, Button, Card, Flex, Stack, Text, Tooltip} from '@liiift-studio/sanity-ui-compat'
-import {CloseIcon} from '@liiift-studio/sanity-ui-compat/icons'
+import {Badge, Box, Button, Card, Flex, Stack, Text, Tooltip} from '@overpunch/sanity-ui-compat'
+import {CloseIcon} from '@overpunch/sanity-ui-compat/icons'
 
 const COOKIE_NAME = 'liiift_pkg_versions'
 /** Duration window for showing the badge on revisit (7 days in ms) */
@@ -241,7 +241,7 @@ export const VersionBadgeLayout = ({packages = [], ...layoutProps}: VersionBadge
 					<Flex align="flex-start" gap={2}>
 						<Stack space={2} flex={1}>
 							{packages.map(({name, version}) => {
-								const displayName = name.replace('@liiift-studio/', '')
+								const displayName = name.replace('@overpunch/', '')
 								const isNew = recentPackages.has(name)
 								const desc = descriptions[name]
 								return (

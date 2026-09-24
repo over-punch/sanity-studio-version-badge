@@ -1,5 +1,5 @@
 {
-  "name": "@liiift-studio/sanity-studio-version-badge",
+  "name": "@overpunch/sanity-studio-version-badge",
   "version": "2.4.1",
   "description": "Sanity Studio plugin — shows installed @liiift-studio package versions in a bottom-right badge on the structure root page.",
   "license": "MIT",
@@ -35,7 +35,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@liiift-studio/sanity-ui-compat": "^0.1.2"
+    "@overpunch/sanity-ui-compat": "^0.1.2"
   },
   "peerDependencies": {
     "@sanity/icons": ">=2 <6",

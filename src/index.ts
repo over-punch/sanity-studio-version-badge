@@ -1,3 +1,3 @@
-// Entry point for @liiift-studio/sanity-studio-version-badge
+// Entry point for @overpunch/sanity-studio-version-badge
 
 export {liiiftVersionBadge} from './plugin'

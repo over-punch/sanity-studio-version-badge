@@ -4,7 +4,7 @@
 [![Sanity Studio v3 – v6](https://img.shields.io/badge/Sanity%20Studio-v3%20%E2%80%93%20v6-f03e2f.svg)](#peer-dependencies)
 [![license](https://img.shields.io/npm/l/@overpunch/sanity-studio-version-badge.svg)](./LICENSE)
 
-Sanity Studio plugin that shows installed `@liiift-studio` package versions in a fixed bottom-right badge on the structure root page. Surfaces recently published packages and reminds the team when updates are available.
+Sanity Studio plugin that shows installed `@overpunch` package versions in a fixed bottom-right badge on the structure root page. Surfaces recently published packages and reminds the team when updates are available.
 
 <!-- MAINTAINER TODO: replace this placeholder with a real screenshot of the badge in Studio.
      This is a Studio UI widget and cannot be captured headlessly. Suggested shots:
@@ -12,13 +12,13 @@ Sanity Studio plugin that shows installed `@liiift-studio` package versions in a
        2. assets/badge-new.png    — a package showing the green "new" label + a description tooltip
      Save under assets/ (already excluded from the npm tarball) and embed with an absolute
      raw.githubusercontent.com URL on `main`, e.g.:
-       ![Version badge in Sanity Studio](https://raw.githubusercontent.com/Liiift-Studio/sanity-studio-version-badge/main/assets/badge.png?v=1)
+       ![Version badge in Sanity Studio](https://raw.githubusercontent.com/over-punch/sanity-studio-version-badge/main/assets/badge.png?v=1)
 -->
 > **Screenshot pending** — a maintainer screenshot of the badge in Studio goes here. The diagram below documents exactly when it appears.
 
 The badge only renders on the structure root, and only when it has something worth saying:
 
-![When the version badge appears: it shows on the structure root — always on localhost, and in production only when a package version changed or more than 7 days passed since it was last seen.](https://raw.githubusercontent.com/Liiift-Studio/sanity-studio-version-badge/main/assets/visibility-flow.svg?v=1)
+![When the version badge appears: it shows on the structure root — always on localhost, and in production only when a package version changed or more than 7 days passed since it was last seen.](https://raw.githubusercontent.com/over-punch/sanity-studio-version-badge/main/assets/visibility-flow.svg?v=1)
 
 ## Install
 
@@ -49,7 +49,7 @@ export default defineConfig({
 })
 ```
 
-Pass the currently installed version of each `@liiift-studio` package. The badge compares these against the latest npm releases to highlight updates.
+Pass the currently installed version of each `@overpunch` package. The badge compares these against the latest npm releases to highlight updates.
 
 ### Keeping the versions in sync
 

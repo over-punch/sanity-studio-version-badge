@@ -13,7 +13,7 @@ interface LiiiftVersionBadgeOptions {
 }
 
 /**
- * Plugin that renders a fixed bottom-right badge listing installed @liiift-studio packages.
+ * Plugin that renders a fixed bottom-right badge listing installed @overpunch packages.
  * The badge is only visible on the structure root (no document open).
  */
 export const liiiftVersionBadge = (options: LiiiftVersionBadgeOptions = {}) =>

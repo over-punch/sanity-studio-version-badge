@@ -1,7 +1,7 @@
 {
   "name": "@overpunch/sanity-studio-version-badge",
   "version": "2.4.1",
-  "description": "Sanity Studio plugin — shows installed @liiift-studio package versions in a bottom-right badge on the structure root page.",
+  "description": "Sanity Studio plugin — shows installed @overpunch package versions in a bottom-right badge on the structure root page.",
   "license": "MIT",
   "author": "Liiift Studio",
   "keywords": [
@@ -54,6 +54,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Liiift-Studio/sanity-studio-version-badge.git"
+    "url": "git+https://github.com/over-punch/sanity-studio-version-badge.git"
   }
 }
